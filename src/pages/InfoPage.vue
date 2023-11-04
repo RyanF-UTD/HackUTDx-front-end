@@ -7,7 +7,10 @@
         label="Your first name *"
         hint="First legal name"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+        :rules="[
+          (val) => (val && val.length > 0) || 'Please type a name',
+          (val) => !/[^a-zA-Z]/.test(val) || 'Please type a name'
+        ]"
       />
 
       <q-input
@@ -16,7 +19,10 @@
         label="Your last name *"
         hint="Last legal name"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+        :rules="[
+          (val) => (val && val.length > 0) || 'Please type a name',
+          (val) => !/[^a-zA-Z]/.test(val) || 'Please type a name'
+        ]"
       />
 
       <q-input
