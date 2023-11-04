@@ -3,9 +3,18 @@
     <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
       <q-input
         filled
-        v-model="name"
-        label="Your name *"
-        hint="Name and surname"
+        v-model="fname"
+        label="Your first name *"
+        hint="First legal name"
+        lazy-rules
+        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        v-model="lname"
+        label="Your last name *"
+        hint="Last legal name"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
@@ -18,11 +27,9 @@
         lazy-rules
         :rules="[
           (val) => (val !== null && val !== '') || 'Please type your age',
-          (val) => (val > 0 && val < 100) || 'Please type a real age'
+          (val) => (val > 0 && val < 150) || 'Please type a real age'
         ]"
       />
-
-      <q-toggle v-model="accept" label="I accept the license and terms" />
 
       <div>
         <q-btn label="Submit" type="submit" color="primary" />
@@ -48,37 +55,30 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
 
-    const name = ref(null);
+    const fname = ref(null);
+    const lname = ref(null);
     const age = ref(null);
     const accept = ref(false);
 
     return {
-      name,
+      fname,
+      lname,
       age,
       accept,
 
       onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "You need to accept the license and terms first"
-          });
-        } else {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted"
-          });
-        }
+        $q.notify({
+          color: "green-4",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted"
+        });
       },
 
       onReset() {
-        name.value = null;
+        fname.value = null;
+        lname.value = null;
         age.value = null;
-        accept.value = false;
       }
     };
   }
