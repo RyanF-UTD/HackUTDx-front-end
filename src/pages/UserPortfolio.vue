@@ -59,31 +59,31 @@ export default defineComponent({
 
     const loadShares = async () => {
       getDocs(sharesRef).then(async (querysnapshot) => {
-        filteredShares.value = await Promise.All(
-          querysnapshot.docs.map(async (sharedoc) => {
-            var data = sharedoc.data();
-            console.log("data: ", data);
-            var propRef = doc(db, "properties", data.propertyID);
-            var property = (await getDoc(propRef)).data();
-            console.log("property: ", property);
-            return {
-              name: property.address,
-              ammount: data.ammount,
-              // valuePerShare: await axios.post("/value", {
-              //   propertyID: el.propertyID,
-              // }),
-            };
-          })
-        ).filter((share) => {
-          if (textFilter.value == "") {
-            return true;
-          } else if (textFilter.value != "") {
-            if (share.name.toString().includes(textFilter.value)) {
-              return true;
-            }
-          }
-          return false;
-        });
+        filteredShares.value = await Promise.all(
+          querysnapshot.docs
+            .map(async (sharedoc) => {
+              var data = sharedoc.data();
+              var propRef = doc(db, "properties", data.propertyID);
+              var property = (await getDoc(propRef)).data();
+              return {
+                name: property.address,
+                ammount: data.ammount,
+                // valuePerShare: await axios.post("/value", {
+                //   propertyID: el.propertyID,
+                // }),
+              };
+            })
+            .filter((share) => {
+              if (textFilter.value == "") {
+                return true;
+              } else if (textFilter.value != "") {
+                if (share.name.toString().includes(textFilter.value)) {
+                  return true;
+                }
+              }
+              return false;
+            })
+        );
       });
     };
 
