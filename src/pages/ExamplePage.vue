@@ -17,7 +17,7 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 import { useCollection } from "vuefire";
 
 export default defineComponent({
-  name: "IndexPage",
+  name: "ExamplePage",
   setup() {
     const ValuationsRef = collection(db, "Valuations");
     const Valuations = useCollection(ValuationsRef);
