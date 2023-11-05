@@ -11,7 +11,7 @@
         <q-item clickable v-ripple>
           <q-item-section>
             <q-item-label>{{ share.name }}</q-item-label>
-            <q-item-label caption>{{ share.valuePerShare }}</q-item-label>
+            <q-item-label caption>{{ share.ammount }}</q-item-label>
             <q-item-section side top>
               <q-item-label>{{
                 share.name * share.valuePerShare
