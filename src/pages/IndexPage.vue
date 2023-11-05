@@ -55,42 +55,6 @@ https://quasar.dev/vue-components/carousel#example--transitions-bottom-navigatio
       </div>
     </div>
   </div>
-
-  <div class="q-pa-md row items-center justify-evenly justify-between q-gutter-md">
-    <q-card class="my-card" flat bordered>
-      <q-card-section>
-        <div class="text-h6 q-mb-xs text-accent">Our Changing Planet</div>
-        <div class="row no-wrap items-center">
-          <q-rating size="18px" v-model="stars" :max="5" color="accent" />
-          <span class="text-caption text-accent q-ml-sm">4.2 (551)</span>
-        </div>
-      </q-card-section>
-
-      <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-    </q-card>
-    <q-card class="my-card" flat bordered>
-      <q-card-section>
-        <div class="text-h6 q-mb-xs text-accent">Our Changing Planet</div>
-        <div class="row no-wrap items-center">
-          <q-rating size="18px" v-model="stars" :max="5" color="accent" />
-          <span class="text-caption text-accent q-ml-sm">4.2 (551)</span>
-        </div>
-      </q-card-section>
-
-      <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-    </q-card>
-    <q-card class="my-card" flat bordered>
-      <q-card-section>
-        <div class="text-h6 q-mb-xs text-accent">Our Changing Planet</div>
-        <div class="row no-wrap items-center">
-          <q-rating size="18px" v-model="stars" :max="5" color="accent" />
-          <span class="text-caption text-accent q-ml-sm">4.2 (551)</span>
-        </div>
-      </q-card-section>
-
-      <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-    </q-card>
-  </div>
 </template>
 
 <!-- this is how to commment-->
@@ -101,9 +65,9 @@ export default {
   setup() {
     return {
       slide: ref(1),
-      stars: ref(4),
+      stars: ref(4)
     };
-  },
+  }
 };
 </script>
 

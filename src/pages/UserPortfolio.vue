@@ -1,9 +1,9 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex">
     <div class="q-pa-md" style="max-width: 350px">
-      {{ filteredShares }}
       <q-list
         bordered
+		class="justify-left"
         separator
         v-for="share in filteredShares"
         :key="share.name"
@@ -24,6 +24,7 @@
       <apexchart
         width="500"
         type="bar"
+		class="row fixed-right"
         :options="chartOptions"
         :series="series"
       ></apexchart>

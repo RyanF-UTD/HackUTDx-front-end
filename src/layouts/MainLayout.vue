@@ -1,6 +1,4 @@
 <template>
-
-  
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
@@ -13,27 +11,30 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title> Sharewood </q-toolbar-title> </q-toolbar
+      ><template>
+        <div class="q-pa-md">
+          <div class="q-gutter-md row items-start">
+            <q-card
+              flat
+              bordered
+              v-for="type in skeletonTypes"
+              :key="type"
+              style="width: 250px"
+            >
+              <q-card-section>
+                <div class="text-caption">"{{ type }}"</div>
+              </q-card-section>
 
+              <q-separator />
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar><template>
-  <div class="q-pa-md">
-    <div class="q-gutter-md row items-start">
-      <q-card flat bordered v-for="type in skeletonTypes" :key="type" style="width: 250px">
-        <q-card-section>
-          <div class="text-caption">"{{ type }}"</div>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-section>
-          <q-skeleton :type="type" />
-        </q-card-section>
-      </q-card>
-    </div>
-  </div>
-</template>
+              <q-card-section>
+                <q-skeleton :type="type" />
+              </q-card-section>
+            </q-card>
+          </div>
+        </div>
+      </template>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
@@ -64,7 +65,7 @@ export default defineComponent({
   name: "MainLayout",
 
   components: {
-    EssentialLink,
+    EssentialLink
   },
 
   setup() {
@@ -97,34 +98,34 @@ export default defineComponent({
           title: "Home",
           caption: "",
           icon: "home",
-          link: "/",
+          link: "/"
         },
         {
           title: "DB Example page",
           caption: "look here for DB examples",
           icon: "warning",
-          link: "/Example",
+          link: "/Example"
         },
         {
           title: "Marketplace",
           caption: "buy and sell shares in realestate",
           icon: "market",
-          link: "/Index",
+          link: "/Index"
         },
         {
           title: "Portfolio",
           caption: "",
           icon: "gear",
-          link: `/profile/${user}`,
+          link: `/profile/${user}`
         },
         {
           title: "Settings",
           caption: "",
           icon: "gear",
-          link: `/profile/${user}/settings`,
-        },
-      ],
+          link: `/profile/${user}/settings`
+        }
+      ]
     };
-  },
+  }
 });
 </script>

@@ -1,13 +1,6 @@
 <template>
   <q-item>
-    <q-item avatar>
-      <q-icon
-        name="material-symbols-park"
-        size="64px"
-        class="row justify-center"
-      />
-    </q-item>
-    <q-item>Sharewood</q-item>
+    <h4>Sharewood</h4>
   </q-item>
   <q-card class="row justify-center q-pa-md">
     <div class="q-pa-md" style="max-width: 600px">
