@@ -6,7 +6,7 @@
       style="width: 200px; height: 200px"
     />
     {{ Valuations }}
-    <q-btn flat dense round icon="warning" @click="getData" />
+    <q-btn flat dense round icon="warning" />
   </q-page>
 </template>
 
@@ -14,7 +14,7 @@
 import { defineComponent } from "vue";
 import { db } from "src/boot/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
-import { useCollection } from "vuefire";
+import { useCollection, doc } from "vuefire";
 
 export default defineComponent({
   name: "ExamplePage",
@@ -22,14 +22,9 @@ export default defineComponent({
     const ValuationsRef = collection(db, "Valuations");
     const Valuations = useCollection(ValuationsRef);
 
-    //example accessing all docs in a collection
-    const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, "Valuations"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-    };
-    return { Valuations, getData };
+    //example accessing id of a doc
+    //doc(collection(db, 'users'), 'jORwjIykFn1NmkdzTkhU').id // 'jORwjIykFn1NmkdzTkhU'
+    return { Valuations };
   },
 });
 </script>

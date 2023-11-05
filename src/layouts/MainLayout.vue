@@ -22,7 +22,7 @@
         <q-item-label header> Essential Links </q-item-label>
 
         <EssentialLink
-          v-for="link in essentialLinks"
+          v-for="link in linksList"
           :key="link.title"
           v-bind="link"
         />
@@ -39,20 +39,7 @@
 import { defineComponent, ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { useRoute } from "vue-router";
-const linksList = [
-  {
-    title: "Home",
-    caption: "",
-    icon: "home",
-    link: "/",
-  },
-  {
-    title: "DB Example page",
-    caption: "look here for DB examples",
-    icon: "warning",
-    link: "/Example",
-  },
-];
+import { auth } from "src/boot/firebase";
 
 export default defineComponent({
   name: "MainLayout",
@@ -64,17 +51,60 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false);
     const route = useRoute();
+    //const user = auth.currentUser.getIdToken();
+    const user = "7JB97xh27bcoUHD5ENEtWseN7eP2";
 
     const goto = (path) => {
       route.path = path;
     };
+
+    auth.onAuthStateChanged((u) => {
+      console.log("authstate changed: ", u);
+      //prompt user to login if authentication fails
+      if (!u) {
+        console.log("sending u to login");
+        //route.replace("/auth");
+      }
+    });
+
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
       goto,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      linksList: [
+        {
+          title: "Home",
+          caption: "",
+          icon: "home",
+          link: "/",
+        },
+        {
+          title: "DB Example page",
+          caption: "look here for DB examples",
+          icon: "warning",
+          link: "/Example",
+        },
+        {
+          title: "Marketplace",
+          caption: "buy and sell shares in realestate",
+          icon: "market",
+          link: "/Index",
+        },
+        {
+          title: "Portfolio",
+          caption: "",
+          icon: "gear",
+          link: `/profile/${user}`,
+        },
+        {
+          title: "Settings",
+          caption: "",
+          icon: "gear",
+          link: `/profile/${user}/settings`,
+        },
+      ],
     };
   },
 });
