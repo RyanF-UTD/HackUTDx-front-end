@@ -1,11 +1,12 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md" style="max-width: 350px">
+      {{ filteredShares }}
       <q-list
         bordered
         separator
         v-for="share in filteredShares"
-        :key="share.id"
+        :key="share.name"
       >
         <q-item clickable v-ripple>
           <q-item-section>
@@ -33,7 +34,14 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { db, auth } from "src/boot/firebase";
-import { collection, getDoc, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  query,
+  where,
+  getDocs,
+  doc,
+} from "firebase/firestore";
 import { useCollection } from "vuefire";
 
 export default defineComponent({
@@ -50,14 +58,13 @@ export default defineComponent({
     const textFilter = ref("");
 
     const loadShares = async () => {
-      filteredShares.value = (
-        await getDocs(sharesRef).then(async (querysnapshot) => {
-          return querysnapshot.docs.map(async (doc) => {
-            var data = doc.data();
+      getDocs(sharesRef).then(async (querysnapshot) => {
+        filteredShares.value = await Promise.All(
+          querysnapshot.docs.map(async (sharedoc) => {
+            var data = sharedoc.data();
             console.log("data: ", data);
-            var property = (
-              await getDoc(db, "properties", data.propertyID)
-            ).data();
+            var propRef = doc(db, "properties", data.propertyID);
+            var property = (await getDoc(propRef)).data();
             console.log("property: ", property);
             return {
               name: property.address,
@@ -66,17 +73,17 @@ export default defineComponent({
               //   propertyID: el.propertyID,
               // }),
             };
-          });
-        })
-      ).filter((share) => {
-        if (textFilter.value == "") {
-          return true;
-        } else if (textFilter.value != "") {
-          if (share.name.toString().includes(textFilter.value)) {
+          })
+        ).filter((share) => {
+          if (textFilter.value == "") {
             return true;
+          } else if (textFilter.value != "") {
+            if (share.name.toString().includes(textFilter.value)) {
+              return true;
+            }
           }
-        }
-        return false;
+          return false;
+        });
       });
     };
 
