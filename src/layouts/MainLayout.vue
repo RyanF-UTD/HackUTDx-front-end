@@ -1,4 +1,6 @@
 <template>
+
+  
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
@@ -13,8 +15,25 @@
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
+
         <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
+      </q-toolbar><template>
+  <div class="q-pa-md">
+    <div class="q-gutter-md row items-start">
+      <q-card flat bordered v-for="type in skeletonTypes" :key="type" style="width: 250px">
+        <q-card-section>
+          <div class="text-caption">"{{ type }}"</div>
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-section>
+          <q-skeleton :type="type" />
+        </q-card-section>
+      </q-card>
+    </div>
+  </div>
+</template>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
