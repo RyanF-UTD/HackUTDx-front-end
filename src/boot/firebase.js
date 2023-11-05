@@ -2,6 +2,7 @@ import { boot } from "quasar/wrappers";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import VueApexCharts from "vue3-apexcharts";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://support.google.com/firebase/answer/7015592
@@ -24,6 +25,7 @@ export const db = getFirestore(app);
 
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
-export default boot(async ({ auth, db }) => {
-  // something to do
+
+export default boot(async ({ app }) => {
+  app.use(VueApexCharts);
 });

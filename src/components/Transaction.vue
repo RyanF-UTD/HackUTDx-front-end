@@ -6,11 +6,19 @@
 
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "TransactionModal",
   setup() {
-    return {};
+    const completeTransaction = async () => {
+      return await axios.get("ENDPOINT", {
+        params: {
+          stuff: "",
+        },
+      });
+      return {};
+    };
   },
 });
 </script>
