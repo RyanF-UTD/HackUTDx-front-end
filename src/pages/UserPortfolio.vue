@@ -77,8 +77,6 @@ export default defineComponent({
           "content-type": "application/json",
           "Access-Control-Allow-Origin": "http://localhost:8000"
         },
-        /*withCredentials: true,
-        credentials: "same-origin", */
         timeout: 2000000,
         data: { req },
         url: process.env.BASEURL + url

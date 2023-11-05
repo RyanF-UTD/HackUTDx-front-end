@@ -27,8 +27,12 @@ const routes = [
     ],
   },
   {
-    path: '/:Info',
+    path: '/Info',
     component: () => import('pages/InfoPage.vue'),
+  },
+  {
+    path: '/Login',
+    component: () => import('pages/LoginPage.vue'),
   },
 
   // Always leave this as last one,
