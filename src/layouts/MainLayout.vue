@@ -13,10 +13,8 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar><template>
@@ -38,20 +36,12 @@
 </template>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header> Essential Links </q-item-label>
 
         <EssentialLink
-          v-for="link in essentialLinks"
+          v-for="link in linksList"
           :key="link.title"
           v-bind="link"
         />
@@ -65,71 +55,76 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+import { defineComponent, ref } from "vue";
+import EssentialLink from "components/EssentialLink.vue";
+import { useRoute } from "vue-router";
+import { auth } from "src/boot/firebase";
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
+    const route = useRoute();
+    //const user = auth.currentUser.getIdToken();
+    const user = "7JB97xh27bcoUHD5ENEtWseN7eP2";
+
+    const goto = (path) => {
+      route.path = path;
+    };
+
+    auth.onAuthStateChanged((u) => {
+      console.log("authstate changed: ", u);
+      //prompt user to login if authentication fails
+      if (!u) {
+        console.log("sending u to login");
+        //route.replace("/auth");
+      }
+    });
 
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      goto,
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+      linksList: [
+        {
+          title: "Home",
+          caption: "",
+          icon: "home",
+          link: "/",
+        },
+        {
+          title: "DB Example page",
+          caption: "look here for DB examples",
+          icon: "warning",
+          link: "/Example",
+        },
+        {
+          title: "Marketplace",
+          caption: "buy and sell shares in realestate",
+          icon: "market",
+          link: "/Index",
+        },
+        {
+          title: "Portfolio",
+          caption: "",
+          icon: "gear",
+          link: `/profile/${user}`,
+        },
+        {
+          title: "Settings",
+          caption: "",
+          icon: "gear",
+          link: `/profile/${user}/settings`,
+        },
+      ],
+    };
+  },
+});
 </script>
