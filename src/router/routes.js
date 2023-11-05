@@ -7,6 +7,10 @@ const routes = [
       { path: "/Example", component: () => import("pages/ExamplePage.vue") },
     ],
   },
+  {
+    path: '/:Info',
+    component: () => import('pages/InfoPage.vue'),
+  },
 
   // Always leave this as last one,
   // but you can also remove it
